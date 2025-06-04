@@ -36,18 +36,65 @@ def analisar_dados_estatisticos(dados_brutos, nome_do_conjunto):
     h = at / k
     print("\n6. Amplitude das Classes (h):")
     print(f"h = {h}")
-    # Arredondar amplitude das Classes
-    num_casas_decimais = 0
-    if at < k: # 0.1
-        num_casas_decimais = 1
-        if at * 10 > k: #0.01
-            num_casas_decimais = 2
-    h = np.ceil(h * (10**num_casas_decimais)) / (10**num_casa_decimais)
-    print("\n6. Amplitude da Classes (h):")
-    print(f"h = {int(h)}")
+
+    classes = []
+    frequencias_absolutas = []
+    pontos_medios = []
+    frequencias_ralativas_dec = []
+    frequencias_ralativas_perc = []
+    frequencia_absolutas_acum = []
+
+    frequencia_abs_acum = 0
+    limite_inferior = x_min
+    for i in range(k): # k = 5 (número de classes)
+        limite_superior = limite_inferior + h # h = 2
+        # classes
+        classes.append(f"[{limite_inferior} --| {limite_superior}]")
+        # Frequência Absoluta
+        frequencia_absoluta = len([x for x in rol if limite_inferior <= x < limite_superior])            
+        frequencias_absolutas.append(frequencia_absoluta)
+        # ponto médio da classe
+        pontos_medios.append((limite_inferior + limite_superior) / 2)
+        # Relativa Descimal
+        frequencias_ralativas_dec.append(frequencias_absolutas[i] / n)
+        # Relativa Absoluta Acumulada 
+        frequencia_abs_acum = frequencia_abs_acum + frequencias_absolutas[i]
+        frequencia_absolutas_acum.append(frequencia_abs_acum)
+        # Relativa Percentual
+        frequencias_ralativas_perc.append(frequencias_ralativas_dec[i] * 100)
+        limite_inferior = limite_superior
+
+    df_frequencia = pd.DataFrame({
+        'classe': classes,
+        'Ponto Médio': pontos_medios,
+        'Frequências Absolutas': frequencias_absolutas,
+        'Frequências Relativas Decimais': frequencias_ralativas_dec,
+        'Frequências Relativas Percentual (%)': frequencias_ralativas_perc,
+        'Frequência Absoluta Acumulada': frequencia_absolutas_acum
+    })
+
+    df_frequencia.loc['Total'] = [ 
+        'Total',
+        np.nan,
+        df_frequencia['Frequências Absolutas'].sum(),
+        df_frequencia['Frequências Relativas Decimais'].sum(),
+        df_frequencia['Frequências Relativas Percentual (%)'].sum(),
+        np.nan
+    ]
+    return df_frequencia
+
+    # # Arredondar amplitude das Classes
+    # num_casas_decimais = 0
+    # if at < k: # 0.1
+    #     num_casas_decimais = 1
+    #     if at * 10 > k: #0.01
+    #         num_casas_decimais = 2
+    # h = np.ceil(h * (10**num_casas_decimais)) / (10**num_casa_decimais)
+    # print("\n6. Amplitude da Classes (h):")
+    # print(f"h = {int(h)}")
 
 
 # --- ESTUDO DE CASO 01: IDADE DOS ALUNOS
 dados_idades = [21, 21, 21, 22, 22, 22, 23, 23, 23, 23, 24, 24, 25, 25, 25, 26, 27, 27, 28, 28, 30, 30, 31, 31, 31]
 df_idades = analisar_dados_estatisticos(dados_idades, "idades alunos")
-# print(df_idades.to_string())
+print(df_idades.to_string())
