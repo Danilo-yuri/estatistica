@@ -20,10 +20,10 @@ def gerar_dados_brutos(num_registros):
             #gerar população aleatoria entre 10k e 5mi
             populacao = fake.random_int(min=10000, max=5000000)
             #gerar taxa de homicidios entre 1.0 e 15.0 arredondado e com uma casa decimal
-            taxa_homicidios = round(random.uniform(1.0, 15.0), 1)
+            Taxa_homicidios = round(random.uniform(1.0, 15.0), 1)
             dados_brutos.append({"cidade": nome_cidade,
                                  "populacao": populacao,
-                                 "taxa taxa_homicidios": taxa_homicidios
+                                 "Taxa_homicidios": Taxa_homicidios
                                  
             })
     return pd.DataFrame(dados_brutos)
@@ -31,8 +31,8 @@ def gerar_dados_brutos(num_registros):
 num_registros=10
 df= gerar_dados_brutos(num_registros)
 #Exibir o data frame
-print(df)
 
-output_csv_file = "taxa_homicidios.csv"
+
+output_csv_file = "Taxa_homicidios.csv"
 df.to_csv(output_csv_file, index=False)
-
+print(df)
