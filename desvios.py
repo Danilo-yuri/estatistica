@@ -34,3 +34,43 @@ variancia = np.var(notas, ddof=1) # para variancia amostral (n-1)
 desvio_padrao = np.std(notas)
 # 7 .Desvio Absoluto (Mediana)
 desvios_abs_emrelacao_mediana_individuais = np.abs(notas - mediana)
+mad = np.mean(desvios_absolutos)
+# 8.Desvio Absoluto Médio
+dam = np.mean(desvios_absolutos)
+
+print("--- DataFrame 1: Dados Brutos, Desvios e Variâncias individuais")
+df_detalhes = pd.DataFrame({
+    'Dados Brutos': notas,
+    'Desvio (x - Média)': desvios,
+    'Variância Individual (x - média)^2': variancias_individuais,
+    'Desvio Absoluto ( x - média)': desvios_absolutos,
+    'Desvio Absoluto (x - mediana)': desvios_abs_emrelacao_mediana_individuais
+
+})
+# imprimir apenas 10 itens das 100 notas, e arredondar para 2 casas decimais
+print(df_detalhes.head(25).round(2))
+
+
+resultados_estatisticos_unicos = {
+    'Métrica Estatística': [
+        'Média',
+        'Mediana',
+        'Desvio Padrao',
+        'Variancância',
+        'Desvio Absoluto Médio (MAD)',
+        'Desvio Absoluto Mediano(MAD)'
+
+    ],
+
+    'Valor Calculado':[
+        media,
+        mediana,
+        desvio_padrao,
+        variancia,
+        dam,
+        mad
+    ]
+
+}
+df_resultados_unicos = pd.DataFrame(resultados_estatisticos_unicos)
+print(df_resultados_unicos.round(3))
