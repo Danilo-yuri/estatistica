@@ -28,7 +28,7 @@ print(df_alunos.head())
 #Cálculo de Quartis
 q1 = df_alunos['Nota'].quantile(0.25)
 q2 = df_alunos['Nota'].quantile(0.50)
-q3 = df_alunos['Nota'].quantile(0.75)
+q3 = df_alunos['Nota'].quantile(0.75)´70poçpo;op
 df_quartis = pd.DataFrame({
     'Quartil': ['Primeiro (Q1)', 'Segundo (Q2 = Mediana)', 'Terceiro (Q3)'],
     'Valor': [q1, q2, q3]
@@ -56,7 +56,7 @@ amplitude_interquartil = q3 - q1
 df_aiq = pd.DataFrame({
     'Métrica': ['Amplitude Interquartil (AIQ)']
     'Valor': [amplitude_interquartil]
-
+ 
 })
 
 print("--- Amplitude Interquartil ")
