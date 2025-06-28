@@ -28,7 +28,7 @@ import graficos_estatisticos
 print(graficos_estatisticos.__doc__)
 
 #importar os dados do csv
-df_dados_brutos = pd.read_csv('estatistica/homicidios_por_populacao/taxa_homicidios.csv')
+df_dados_brutos = pd.read_csv('taxa_homicidios.csv')
 
 def histograma():
     bins_do_grafico = [2, 6, 10, 15]
